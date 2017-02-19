@@ -11,16 +11,13 @@ package com.af.synapse.lib;
 
 import com.af.synapse.utils.ElementFailureException;
 
-/**
- * Created by Andrei on 02/09/13.
- */
 public interface ActionValueClient {
-    public String getLiveValue() throws ElementFailureException;
-    public String getSetValue();
-    public String getStoredValue();
+    String getLiveValue() throws ElementFailureException;
+    String getSetValue();
+    String getStoredValue();
 
-    public void refreshValue() throws ElementFailureException;
-    public void setDefaults();
-    public void applyValue() throws ElementFailureException;
-    public void cancelValue() throws ElementFailureException;
+    void refreshValue() throws ElementFailureException;
+    void setDefaults();
+    void applyValue() throws ElementFailureException;
+    void cancelValue() throws ElementFailureException;
 }

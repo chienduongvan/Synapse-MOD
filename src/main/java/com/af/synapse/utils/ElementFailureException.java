@@ -11,9 +11,6 @@ package com.af.synapse.utils;
 
 import com.af.synapse.elements.BaseElement;
 
-/**
- * Created by Andrei on 06/02/14.
- */
 public class ElementFailureException extends Exception {
     private BaseElement source = null;
     private String sourceClassName = null;
@@ -33,7 +30,7 @@ public class ElementFailureException extends Exception {
         return source;
     }
 
-    public String getSourceClass() {
+    String getSourceClass() {
         return sourceClassName;
     }
 }

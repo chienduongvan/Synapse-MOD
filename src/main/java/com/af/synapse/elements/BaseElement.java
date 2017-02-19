@@ -15,16 +15,12 @@ import android.widget.LinearLayout;
 import com.af.synapse.MainActivity;
 import com.af.synapse.Synapse;
 import com.af.synapse.utils.ElementFailureException;
-import com.af.synapse.utils.L;
 
 import net.minidev.json.JSONObject;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-/**
- * Created by Andrei on 30/08/13.
- */
 public class BaseElement extends ElementSkeleton {
     public BaseElement(JSONObject element, LinearLayout layout,
                        MainActivity.TabSectionFragment fragment) {
@@ -36,7 +32,7 @@ public class BaseElement extends ElementSkeleton {
     public static BaseElement createObject(String type, JSONObject element, LinearLayout layout,
                                            MainActivity.TabSectionFragment fragment)
                               throws ElementFailureException {
-        BaseElement newObject = null;
+        BaseElement newObject;
         Class<?> c;
 
         if (type == null)

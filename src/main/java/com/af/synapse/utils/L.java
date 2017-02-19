@@ -13,9 +13,6 @@ import android.util.Log;
 
 import com.af.synapse.BuildConfig;
 
-/**
- * Created by Andrei on 27/08/13.
- */
 public class L {
     public static void d(String message) {
         if (BuildConfig.DEBUG) {

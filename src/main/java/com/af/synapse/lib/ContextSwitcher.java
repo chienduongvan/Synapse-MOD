@@ -9,14 +9,10 @@
 
 package com.af.synapse.lib;
 
-/**
- * Created by Andrei on 03/09/13.
- */
 public class ContextSwitcher {
     private static final String globalContext = "global";
-    private static String context = globalContext;
 
     public static String getContext() {
-        return context;
+        return globalContext;
     }
 }

@@ -9,9 +9,6 @@
 
 package com.af.synapse.utils;
 
-/**
- * Created by Andrei on 23/02/14.
- */
 public class NamedRunnable implements Runnable {
     private final Runnable runnable;
 

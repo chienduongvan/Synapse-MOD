@@ -14,7 +14,6 @@ import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -22,7 +21,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.af.synapse.MainActivity;
@@ -44,9 +42,6 @@ import net.minidev.json.JSONObject;
 
 import java.util.ArrayDeque;
 
-/**
- * Created by Andrei on 07/03/14.
- */
 public class SGeneric extends BaseElement
                       implements TextView.OnEditorActionListener,
                                  View.OnClickListener,
@@ -324,10 +319,10 @@ public class SGeneric extends BaseElement
         return command;
     }
 
-    private ArrayDeque<ActionNotification> queue = new ArrayDeque<ActionNotification>();
+    private ArrayDeque<ActionNotification> queue = new ArrayDeque<>();
     private boolean jobRunning = false;
 
-    public void handleNotifications() {
+    private void handleNotifications() {
         jobRunning = true;
         while (queue.size() > 0) {
             ActionNotification current = queue.removeFirst();

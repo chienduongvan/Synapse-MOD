@@ -9,7 +9,6 @@
 
 package com.af.synapse;
 
-import android.Manifest;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -22,7 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -186,7 +184,7 @@ public class MainActivity extends FragmentActivity {
         for (int i = 0; i < Utils.configSections.size(); i++)
             section_titles[i] = Utils.localise(((JSONObject)Utils.configSections.get(i)).get("name"));
 
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item, section_titles));
+        mDrawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_item, section_titles));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
         mDrawerList.setItemChecked(0, true);
 
@@ -371,7 +369,6 @@ public class MainActivity extends FragmentActivity {
                  // Restauramos perfil
                 Utils.runCommand(BB+" mount -o remount,rw /", false);
                 Utils.runCommand("/res/synapse/actions/sqlite ImportConfigSynapse "+backup, false);
-
                 Utils.runCommand("/res/synapse/uci restart", false);
                 Utils.runCommand(BB+" mount -o remount,ro /", false);
             }
@@ -379,7 +376,7 @@ public class MainActivity extends FragmentActivity {
         adb.setNegativeButton(R.string.btn_no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();;
+                dialog.dismiss();
             }
         });
         adb.create().show();
@@ -489,7 +486,7 @@ public class MainActivity extends FragmentActivity {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
             mViewPager.setCurrentItem(position, true);
-            mDrawerLayout.closeDrawer(Gravity.LEFT);
+            mDrawerLayout.closeDrawer(Gravity.START);
         }
     }
 
@@ -545,7 +542,7 @@ public class MainActivity extends FragmentActivity {
             });
         }
 
-        public SectionsPagerAdapter(FragmentManager fm) {
+        SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
 
             if (fragmentsDone.get() > 0)
@@ -608,7 +605,7 @@ public class MainActivity extends FragmentActivity {
         private int sectionNumber;
 
         public View fragmentView = null;
-        public ArrayList<BaseElement> fragmentElements = new ArrayList<BaseElement>();
+        public ArrayList<BaseElement> fragmentElements = new ArrayList<>();
 
         public TabSectionFragment() {
             this.setRetainInstance(true);
@@ -633,7 +630,7 @@ public class MainActivity extends FragmentActivity {
                 String type = Utils.getEnclosure(elm);
                 JSONObject parameters = (JSONObject) elm.get(type);
 
-                BaseElement elementObj = null;
+                BaseElement elementObj;
 
                 try {
                     elementObj = BaseElement.createObject(type, parameters, tabContentLayout, this);
@@ -650,7 +647,7 @@ public class MainActivity extends FragmentActivity {
                  *  them here after their creation.
                  */
 
-                View elementView = null;
+                View elementView;
 
                 try {
                     elementView = elementObj.getView();
@@ -670,9 +667,9 @@ public class MainActivity extends FragmentActivity {
             fragmentView = tabSectionView;
         }
 
-        public boolean containsElement(BaseElement element) {
-            return fragmentElements.contains(element);
-        }
+        //public boolean containsElement(BaseElement element) {
+        //    return fragmentElements.contains(element);
+        //}
 
         public void addElement(BaseElement element) {
             fragmentElements.add(element);

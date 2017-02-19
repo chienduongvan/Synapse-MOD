@@ -17,9 +17,6 @@ import com.af.synapse.utils.ElementFailureException;
 
 import net.minidev.json.JSONObject;
 
-/**
- * Created by Andrei on 30/08/13.
- */
 abstract class ElementSkeleton {
     public JSONObject element;
     public LinearLayout layout;

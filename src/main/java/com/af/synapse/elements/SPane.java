@@ -25,9 +25,6 @@ import com.af.synapse.utils.Utils;
 
 import net.minidev.json.JSONObject;
 
-/**
- * Created by Andrei on 30/08/13.
- */
 public class SPane extends BaseElement {
     private static Drawable background = null;
 

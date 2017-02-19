@@ -9,9 +9,6 @@ import com.af.synapse.utils.Utils;
 
 import net.minidev.json.JSONObject;
 
-/**
- * Created by Andrei on 26/03/14.
- */
 public class SSpacer extends BaseElement {
     public SSpacer(JSONObject element, LinearLayout layout, MainActivity.TabSectionFragment fragment) {
         super(element, layout, fragment);

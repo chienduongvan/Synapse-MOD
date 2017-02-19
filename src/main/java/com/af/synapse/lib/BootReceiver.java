@@ -12,9 +12,7 @@ package com.af.synapse.lib;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-/**
- * Created by Andrei on 23/09/13.
- */
+
 public class BootReceiver extends BroadcastReceiver
 {
     @Override

@@ -24,9 +24,6 @@ import com.af.synapse.utils.Utils;
 
 import net.minidev.json.JSONObject;
 
-/**
- * Created by Andrei on 30/08/13.
- */
 public class STitleBar extends BaseElement {
     private static Drawable background = null;
     private static int paddingLeft = Integer.MIN_VALUE;

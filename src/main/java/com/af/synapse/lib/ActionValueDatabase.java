@@ -10,7 +10,6 @@
 package com.af.synapse.lib;
 
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteException;
@@ -20,9 +19,6 @@ import android.database.sqlite.SQLiteStatement;
 import com.af.synapse.Synapse;
 import com.af.synapse.utils.L;
 
-/**
- * Created by Andrei on 03/09/13.
- */
 public class ActionValueDatabase extends SQLiteOpenHelper {
     private static final String DB_PATH = Synapse.getAppContext()
                                                          .getFilesDir()
@@ -102,7 +98,7 @@ public class ActionValueDatabase extends SQLiteOpenHelper {
         return getValue(ContextSwitcher.getContext(), key);
     }
 
-    public synchronized String getValue(String context, String key) {
+    synchronized String getValue(String context, String key) {
         if (!lastContext.equals(context)) {
             read.bindString(1, context);
             lastContext = context;
@@ -120,7 +116,7 @@ public class ActionValueDatabase extends SQLiteOpenHelper {
         setValue(ContextSwitcher.getContext(), key, value);
     }
 
-    public void setValue(String context, String key, String value) {
+    void setValue(String context, String key, String value) {
         ContentValues cv = new ContentValues();
         cv.put(COL_VALUE, value);
 

@@ -46,9 +46,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
-/**
- * Created by Andrei on 12/09/13.
- */
 public class SOptionList extends BaseElement
                          implements AdapterView.OnItemSelectedListener,
                                     View.OnClickListener,
@@ -78,8 +75,8 @@ public class SOptionList extends BaseElement
     private String command;
     private Runnable resumeTask = null;
 
-    List<String> items = new ArrayList<String>();
-    List<String> labels = new ArrayList<String>();
+    private List<String> items = new ArrayList<>();
+    private List<String> labels = new ArrayList<>();
     private String unit = "";
 
     private String original = null;
@@ -274,11 +271,14 @@ public class SOptionList extends BaseElement
         if (titleObj != null) {
             TextView titleView = (TextView)titleObj.getView();
             titleView.setBackground(null);
+            assert descriptionFrame != null;
             descriptionFrame.addView(titleView);
         }
 
-        if (descriptionObj != null)
+        if (descriptionObj != null) {
+            assert descriptionFrame != null;
             descriptionFrame.addView(descriptionObj.getView());
+        }
 
         /**
          *  Next and previous buttons
@@ -299,7 +299,7 @@ public class SOptionList extends BaseElement
             spinner = (Spinner) elementView.findViewById(R.id.SOptionList_spinner);
 
         spinner.setOnItemSelectedListener(this);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Utils.mainActivity,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Utils.mainActivity,
                                                 R.layout.template_optionlist_main_item, labels);
         adapter.setDropDownViewResource(R.layout.template_optionlist_list_item);
         spinner.setAdapter(adapter);
@@ -410,10 +410,10 @@ public class SOptionList extends BaseElement
         return command;
     }
 
-    private ArrayDeque<ActionNotification> queue = new ArrayDeque<ActionNotification>();
+    private ArrayDeque<ActionNotification> queue = new ArrayDeque<>();
     private boolean jobRunning = false;
 
-    public void handleNotifications() {
+    private void handleNotifications() {
         jobRunning = true;
         while (queue.size() > 0) {
             ActionNotification current = queue.removeFirst();
@@ -568,7 +568,7 @@ public class SOptionList extends BaseElement
         onItemSelectedIgnored = true;
     }
 
-    int resumeCount = 0;
+    private int resumeCount = 0;
 
     @Override
     public void onResume() {
@@ -578,10 +578,7 @@ public class SOptionList extends BaseElement
          * Causing the spinner to again reset to the last Spinner's index inside of the fragment.
          * Fuck everything about Google's asinine framework.
          */
-        if (++resumeCount > 1)
-            onItemSelectedIgnored = !onItemSelectedIgnored;
-        else
-            onItemSelectedIgnored = false;
+        onItemSelectedIgnored = ++resumeCount > 1 && !onItemSelectedIgnored;
     }
 
     @Override

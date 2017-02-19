@@ -32,24 +32,21 @@ import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 
-/**
- * Created by Andrei on 15/03/14.
- */
 
 public class STreeDescriptor extends BaseElement implements ActionValueNotifierClient {
     private String directoryPath;
 
-    static class ObjectDescriptor {
+    private static class ObjectDescriptor {
         String          type;
         JSONObject   element;
         BaseElement instance;
 
-        public ObjectDescriptor(String type, JSONObject element) {
+        ObjectDescriptor(String type, JSONObject element) {
             this.type = type;
             this.element = element;
         }
 
-        public ObjectDescriptor(ObjectDescriptor copy) {
+        ObjectDescriptor(ObjectDescriptor copy) {
             this.type = copy.type;
             this.element = (JSONObject) copy.element.clone();
         }
@@ -61,14 +58,14 @@ public class STreeDescriptor extends BaseElement implements ActionValueNotifierC
     private ArrayMap<String, ObjectDescriptor> directories;
     private ArrayMap<String, ObjectDescriptor> elements;
 
-    private ArrayList<ObjectDescriptor> descriptorList = new ArrayList<ObjectDescriptor>();
-    private ArrayList<String> excludes = new ArrayList<String>();
+    private ArrayList<ObjectDescriptor> descriptorList = new ArrayList<>();
+    private ArrayList<String> excludes = new ArrayList<>();
 
-    private ArrayList<BaseElement> baseElements = new ArrayList<BaseElement>();
-    private ArrayList<String> actionList = new ArrayList<String>();
-    private ArrayList<STreeDescriptor> children = new ArrayList<STreeDescriptor>();
+    private ArrayList<BaseElement> baseElements = new ArrayList<>();
+    private ArrayList<String> actionList = new ArrayList<>();
+    private ArrayList<STreeDescriptor> children = new ArrayList<>();
 
-    private MainActivity.TabSectionFragment container = null;
+    //private MainActivity.TabSectionFragment container = null;
 
     public STreeDescriptor(JSONObject element, LinearLayout layout, MainActivity.TabSectionFragment fragment) {
         super(element, layout, fragment);
@@ -110,7 +107,7 @@ public class STreeDescriptor extends BaseElement implements ActionValueNotifierC
 
             if (matched.containsKey("directories")) {
                 JSONArray directoriesJSON = (JSONArray) matched.get("directories");
-                this.directories = new ArrayMap<String, ObjectDescriptor>();
+                this.directories = new ArrayMap<>();
 
                 for (Object directoryEntry : directoriesJSON) {
                     JSONObject valuePair = (JSONObject) directoryEntry;
@@ -126,7 +123,7 @@ public class STreeDescriptor extends BaseElement implements ActionValueNotifierC
 
             if (matched.containsKey("elements")) {
                 JSONArray elementsJSON = (JSONArray) matched.get("elements");
-                this.elements = new ArrayMap<String, ObjectDescriptor>();
+                this.elements = new ArrayMap<>();
 
                 for (Object elementEntry : elementsJSON) {
                     JSONObject valuePair = (JSONObject) elementEntry;
@@ -248,7 +245,7 @@ public class STreeDescriptor extends BaseElement implements ActionValueNotifierC
         return null;
     }
 
-    public void collapse() throws ElementFailureException {
+    private void collapse() throws ElementFailureException {
         View v;
         LinearLayout p;
 
@@ -295,13 +292,13 @@ public class STreeDescriptor extends BaseElement implements ActionValueNotifierC
         this.children.clear();
     }
 
-    public void rebuild() {
+    private void rebuild() {
         buildHierarchy();
         getView();
     }
 
     public ArrayList<String> getFlatActionTreeList() {
-        ArrayList<String> f = new ArrayList<String>();
+        ArrayList<String> f = new ArrayList<>();
 
         f.addAll(this.actionList);
 
@@ -311,7 +308,7 @@ public class STreeDescriptor extends BaseElement implements ActionValueNotifierC
         return f;
     }
 
-    public ArrayList<String> getActions() {
+    private ArrayList<String> getActions() {
         return this.actionList;
     }
 
@@ -324,10 +321,10 @@ public class STreeDescriptor extends BaseElement implements ActionValueNotifierC
         return directoryPath;
     }
 
-    private ArrayDeque<ActionNotification> queue = new ArrayDeque<ActionNotification>();
+    private ArrayDeque<ActionNotification> queue = new ArrayDeque<>();
     private boolean jobRunning = false;
 
-    public void handleNotifications() {
+    private void handleNotifications() {
         jobRunning = true;
         while (queue.size() > 0) {
             ActionNotification current = queue.removeFirst();

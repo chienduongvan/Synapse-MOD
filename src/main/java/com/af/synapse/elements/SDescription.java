@@ -15,7 +15,6 @@ import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
@@ -27,9 +26,6 @@ import com.af.synapse.utils.Utils;
 
 import net.minidev.json.JSONObject;
 
-/**
- * Created by Andrei on 30/08/13.
- */
 public class SDescription extends BaseElement{
     private TextView v = null;
 
@@ -60,6 +56,7 @@ public class SDescription extends BaseElement{
         Object description = this.element.get("description");
 
         String content = Utils.localise(description);
+        assert content != null;
         if (content.contains("href=")) {
             v.setClickable(true);
             v.setMovementMethod(LinkMovementMethod.getInstance());

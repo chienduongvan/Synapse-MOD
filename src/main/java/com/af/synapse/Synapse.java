@@ -23,9 +23,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by Andrei on 04/10/13.
- */
 public class Synapse extends Application {
     private static Context context;
     public static Handler handler;
@@ -72,13 +69,13 @@ public class Synapse extends Application {
             return;
 
         NR_CORES = Runtime.getRuntime().availableProcessors();
-        threadWorkQueue = new LinkedBlockingQueue<Runnable>();
+        threadWorkQueue = new LinkedBlockingQueue<>();
         executor = new ThreadPoolExecutor(NR_CORES, NR_CORES, 0L, TimeUnit.MILLISECONDS, threadWorkQueue);
     }
 
-    public static void closeExecutor() {
-        executor.shutdown();
-    }
+    //public static void closeExecutor() {
+    //    executor.shutdown();
+    //}
 
     public static Context getAppContext() {
         return Synapse.context;

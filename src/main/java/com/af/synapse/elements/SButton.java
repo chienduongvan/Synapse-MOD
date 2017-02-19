@@ -34,12 +34,8 @@ import net.minidev.json.JSONObject;
 
 import java.util.ArrayDeque;
 
-/**
- * Created by Andrei on 31/08/13.
- */
 public class SButton extends BaseElement implements View.OnClickListener,
                                                     ActionValueNotifierClient, ActivityListener {
-    private Button button;
     private String command;
 
     public SButton(JSONObject element, LinearLayout layout,
@@ -56,15 +52,15 @@ public class SButton extends BaseElement implements View.OnClickListener,
 
     @Override
     public View getView() {
-        this.button = (Button) LayoutInflater.from(Utils.mainActivity)
-                                            .inflate(R.layout.template_button, this.layout, false);
+        Button button = (Button) LayoutInflater.from(Utils.mainActivity)
+                .inflate(R.layout.template_button, this.layout, false);
 
         if (this.element.containsKey("label"))
-            this.button.setText(Utils.localise(this.element.get("label")));
+            button.setText(Utils.localise(this.element.get("label")));
 
-        this.button.setOnClickListener(this);
+        button.setOnClickListener(this);
 
-        return this.button;
+        return button;
     }
 
     @Override
@@ -97,10 +93,10 @@ public class SButton extends BaseElement implements View.OnClickListener,
         return command;
     }
 
-    private ArrayDeque<ActionNotification> queue = new ArrayDeque<ActionNotification>();
+    private ArrayDeque<ActionNotification> queue = new ArrayDeque<>();
     private boolean jobRunning = false;
 
-    public void handleNotifications() {
+    private void handleNotifications() {
         jobRunning = true;
         while (queue.size() > 0) {
             ActionNotification current = queue.removeFirst();

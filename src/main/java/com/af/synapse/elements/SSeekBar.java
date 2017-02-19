@@ -10,14 +10,12 @@
 package com.af.synapse.elements;
 
 import android.graphics.Color;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.SeekBar;
@@ -47,9 +45,6 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * Created by Andrei on 31/08/13.
- */
 public class SSeekBar extends BaseElement
                       implements SeekBar.OnSeekBarChangeListener,
                                  View.OnClickListener,
@@ -119,19 +114,19 @@ public class SSeekBar extends BaseElement
 
         if (element.containsKey("values")) {
             this.isListBound = element.containsKey("listBound") ? (Boolean) element.get("listBound") : true;
-            values = new ArrayList<Integer>();
+            values = new ArrayList<>();
             Object jsonValues = element.get("values");
             if (jsonValues instanceof JSONArray)
                 for (Object value : (JSONArray)jsonValues)
                     values.add((Integer) value);
             else if (jsonValues instanceof JSONObject) {
-                labels = new ArrayList<String>();
+                labels = new ArrayList<>();
 
                 /**
                  *  We expect integers as the map keys, but they're unsorted. Create a fancy
                  *  TreeMap with custom comparator to add the values to so that they get sorted.
                  */
-                Map<String, Object> sorted = new TreeMap<String, Object>(new Comparator<String>() {
+                Map<String, Object> sorted = new TreeMap<>(new Comparator<String>() {
                     @Override
                     public int compare(String o1, String o2) {
                         int i1 = Integer.valueOf(o1);
@@ -532,10 +527,10 @@ public class SSeekBar extends BaseElement
         return command;
     }
 
-    private ArrayDeque<ActionNotification> queue = new ArrayDeque<ActionNotification>();
+    private ArrayDeque<ActionNotification> queue = new ArrayDeque<>();
     private boolean jobRunning = false;
 
-    public void handleNotifications() {
+    private void handleNotifications() {
         jobRunning = true;
         while (queue.size() > 0) {
             ActionNotification current = queue.removeFirst();

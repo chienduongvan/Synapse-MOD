@@ -9,10 +9,6 @@
 
 package com.af.synapse.lib;
 
-/**
- * Created by Andrei on 19/04/14.
- */
-
 public class ActionNotification {
     public ActionValueNotifierClient source;
     public ActionValueEvent notification;

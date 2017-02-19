@@ -27,14 +27,11 @@ import com.af.synapse.utils.Utils;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
-/**
- * Created by Andrei on 04/10/13.
- */
 public class BootService extends Service {
     public static final String BOOT_STABLE = "BOOT_IS_STABLE";
     public static final String BOOT_PENDING = "BOOT_IS_PENDING";
     public static final int BOOT_STABILITY_DELAY = 120;
-    public static final int BOOT_FLAG_APPLY_DELAY = 20;
+    //public static final int BOOT_FLAG_APPLY_DELAY = 20;
 
     private static Runnable stabilityFlagSetter;
 

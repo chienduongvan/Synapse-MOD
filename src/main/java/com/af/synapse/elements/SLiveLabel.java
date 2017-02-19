@@ -20,15 +20,10 @@ import com.af.synapse.R;
 import com.af.synapse.Synapse;
 import com.af.synapse.lib.ActivityListener;
 import com.af.synapse.utils.ElementFailureException;
-import com.af.synapse.utils.RootFailureException;
-import com.af.synapse.utils.RunCommandFailedException;
 import com.af.synapse.utils.Utils;
 
 import net.minidev.json.JSONObject;
 
-/**
- * Created by Andrei on 12/01/14.
- */
 public class SLiveLabel extends BaseElement implements ActivityListener {
     private View elementView = null;
 

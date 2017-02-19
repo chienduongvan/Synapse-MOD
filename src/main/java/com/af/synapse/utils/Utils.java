@@ -18,7 +18,6 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
@@ -39,14 +38,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
-/**
- * Created by Andrei on 27/08/13.
- */
 public class Utils {
     public static boolean appStarted = false;
     public static ActionValueDatabase db = null;
@@ -55,7 +50,7 @@ public class Utils {
     public static Activity settingsActivity;
     public static final String CONFIG_CONTEXT = "CONFIGURATION";
     public static JSONArray configSections = null;
-    protected static ArrayList<SuperShell> shells = new ArrayList<SuperShell>();
+    static ArrayList<SuperShell> shells = new ArrayList<>();
     public static String locale = "en";
     public static InputMethodManager imm;
     public static float density;
@@ -75,7 +70,7 @@ public class Utils {
         }
     }
 
-    public static String runCommandWithException(String command, boolean bigOutput)
+    private static String runCommandWithException(String command, boolean bigOutput)
         throws RunCommandFailedException, RootFailureException {
         SuperShell shell = null;
         for (SuperShell s : shells) {
@@ -99,10 +94,10 @@ public class Utils {
         return runCommandWithException(command, false);
     }
 
-    public static JSONObject getJSON() {
+    private static JSONObject getJSON() {
         JSONObject result;
 
-        String res = null;
+        String res;
         try {
             res = Utils.runCommandWithException("uci config", true);
         } catch (Exception e) {
@@ -242,34 +237,32 @@ class SuperShell {
     private BufferedReader ci = null;
     private BufferedReader ce = null;
 
-    private OutputStreamWriter os = null;
     private InputStreamReader is = null;
-    private InputStreamReader es = null;
 
     private static final int MAX_ROOT_TIMEOUT_MS = 120000;
     private static final String callback = "/shellCallback/";
     private static final int callbackLength = callback.length();
 
     private static String actionPath = null;
-    Pattern pattern = Pattern.compile("[\n\r]+");
+    private Pattern pattern = Pattern.compile("[\n\r]+");
 
-    public final AtomicInteger lock = new AtomicInteger(0);
-    public final CountDownLatch rootLatch = new CountDownLatch(1);
+    final AtomicInteger lock = new AtomicInteger(0);
+    private final CountDownLatch rootLatch = new CountDownLatch(1);
 
-    public SuperShell() throws RootFailureException, RunCommandFailedException {
+    SuperShell() throws RootFailureException, RunCommandFailedException {
         try {
             this.rp = Runtime.getRuntime().exec("su");
         } catch (IOException e) {
             throw new RootFailureException(e.getMessage());
         }
 
-        os = new OutputStreamWriter(rp.getOutputStream());
+        OutputStreamWriter os = new OutputStreamWriter(rp.getOutputStream());
         this.co = new BufferedWriter(os);
 
         is = new InputStreamReader(rp.getInputStream());
         this.ci = new BufferedReader(is);
 
-        es = new InputStreamReader(rp.getErrorStream());
+        InputStreamReader es = new InputStreamReader(rp.getErrorStream());
         this.ce = new BufferedReader(es);
 
         this.isRoot();
@@ -282,8 +275,8 @@ class SuperShell {
         Utils.shells.add(this);
     }
 
-    public boolean isRoot() throws RootFailureException, RunCommandFailedException {
-        String line = "";
+    private boolean isRoot() throws RootFailureException, RunCommandFailedException {
+        String line;
 
         try {
             long timeStart = 0;
@@ -385,7 +378,7 @@ class SuperShell {
         return pattern.matcher(sb.toString()).replaceAll("");
     }
 
-    public void destroy() {
+    void destroy() {
         try {
             if (rp != null) {
                 co.write("exit\n");

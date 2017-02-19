@@ -17,9 +17,6 @@ import android.widget.Toast;
 
 import com.af.synapse.R;
 
-/**
- * Created by Andrei on 19/03/14.
- */
 public class LinkMovementMethod extends android.text.method.LinkMovementMethod {
     private static LinkMovementMethod sInstance;
 

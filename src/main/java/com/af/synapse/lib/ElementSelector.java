@@ -9,24 +9,18 @@
 
 package com.af.synapse.lib;
 
-import android.support.v4.util.ArrayMap;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.af.synapse.MainActivity;
 import com.af.synapse.R;
 import com.af.synapse.elements.BaseElement;
-import com.af.synapse.elements.STreeDescriptor;
-import com.af.synapse.utils.Utils;
+
 
 import java.util.ArrayList;
 
-/**
- * Created by Andrei on 15/05/14.
- */
 public class ElementSelector {
     private static ArrayList<Selectable> selection = new ArrayList<>();
 
@@ -90,7 +84,7 @@ public class ElementSelector {
         selection.remove(s);
     }
 
-    public static void openSelection() {
+    private static void openSelection() {
         selection.clear();
 
         for (MainActivity.TabSectionFragment fragment : MainActivity.fragments) {
@@ -102,7 +96,7 @@ public class ElementSelector {
         }
     }
 
-    public static void closeSelection() {
+    private static void closeSelection() {
         for (MainActivity.TabSectionFragment fragment : MainActivity.fragments) {
             for (BaseElement b : fragment.fragmentElements) {
                 if (b instanceof Selectable) {

@@ -11,12 +11,9 @@ package com.af.synapse.lib;
 
 import com.af.synapse.utils.ElementFailureException;
 
-/**
- * Created by Andrei on 05/09/13.
- */
 public interface ActivityListener {
-    public void onMainStart() throws ElementFailureException;
-    public void onStart() throws ElementFailureException;
-    public void onResume() throws ElementFailureException;
-    public void onPause() throws ElementFailureException;
+    void onMainStart() throws ElementFailureException;
+    void onStart() throws ElementFailureException;
+    void onResume() throws ElementFailureException;
+    void onPause() throws ElementFailureException;
 }

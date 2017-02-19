@@ -80,8 +80,8 @@ public class Settings extends PreferenceActivity {
 
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setHomeButtonEnabled(true);
         getFragmentManager()
             .beginTransaction()
             .replace(android.R.id.content, new MyPreferenceFragment())

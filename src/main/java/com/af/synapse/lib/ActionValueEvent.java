@@ -9,10 +9,6 @@
 
 package com.af.synapse.lib;
 
-/**
- * Created by Andrei on 10/04/14.
- */
-
 public enum ActionValueEvent {
     SET,
     RESET,

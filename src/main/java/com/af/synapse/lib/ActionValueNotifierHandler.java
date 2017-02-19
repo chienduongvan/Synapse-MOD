@@ -13,9 +13,6 @@ import android.support.v4.util.ArrayMap;
 
 import com.af.synapse.elements.BaseElement;
 import com.af.synapse.utils.ElementFailureException;
-import com.af.synapse.utils.L;
-import com.af.synapse.utils.RootFailureException;
-import com.af.synapse.utils.RunCommandFailedException;
 import com.af.synapse.utils.Utils;
 
 import net.minidev.json.JSONArray;
@@ -23,22 +20,19 @@ import net.minidev.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by Andrei on 10/04/14.
- */
 public class ActionValueNotifierHandler {
-    public static ArrayMap<String, ActionValueNotifierClient> clients = new ArrayMap<String, ActionValueNotifierClient>();
+    private static ArrayMap<String, ActionValueNotifierClient> clients = new ArrayMap<>();
 
-    public static ArrayMap<ActionValueNotifierClient, ArrayList<NotificationRelation>> notifiers =
-            new ArrayMap<ActionValueNotifierClient, ArrayList<NotificationRelation>>();
+    private static ArrayMap<ActionValueNotifierClient, ArrayList<NotificationRelation>> notifiers =
+            new ArrayMap<>();
 
-    static class NotificationRelation {
+    private static class NotificationRelation {
         private ActionValueNotifierClient target;
         private ActionValueEvent event;
         private Object[] response;
 
-        protected NotificationRelation(ActionValueNotifierClient target,
-                                       ActionValueEvent event, Object ... response) {
+        NotificationRelation(ActionValueNotifierClient target,
+                             ActionValueEvent event, Object... response) {
             this.target = target;
             this.event = event;
             this.response = response;
@@ -96,7 +90,7 @@ public class ActionValueNotifierHandler {
                 }
             else if (doo instanceof JSONArray) {
                 // Multiple responses, may be standard event or custom actions
-                response = new ArrayList<Object>();
+                response = new ArrayList<>();
                 for (Object o : (JSONArray) doo)
                     try {
                         // Add the next Event
@@ -163,8 +157,8 @@ public class ActionValueNotifierHandler {
         }
     }
 
-    public static void listenTo(ActionValueNotifierClient listener, String target,
-                                ActionValueEvent event, Object ... response) {
+    private static void listenTo(ActionValueNotifierClient listener, String target,
+                                 ActionValueEvent event, Object... response) {
         ActionValueNotifierClient t = clients.get(target);
         if (t == null)
             throw new IllegalArgumentException("Target "+target+" is not registered");
@@ -175,8 +169,8 @@ public class ActionValueNotifierHandler {
         notifiers.get(t).add(new NotificationRelation(listener, event, response));
     }
 
-    public static void notifyTo(ActionValueNotifierClient notifier, String target,
-                                ActionValueEvent event, Object ... response) {
+    private static void notifyTo(ActionValueNotifierClient notifier, String target,
+                                 ActionValueEvent event, Object... response) {
         ActionValueNotifierClient t = clients.get(target);
         if (t == null)
             throw new IllegalArgumentException("Target "+target+" is not registered");

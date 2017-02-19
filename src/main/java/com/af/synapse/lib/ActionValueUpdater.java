@@ -18,19 +18,16 @@ import com.af.synapse.utils.Utils;
 
 import java.util.ArrayList;
 
-/**
- * Created by Andrei on 04/09/13.
- */
 public class ActionValueUpdater {
-    public static ArrayList<ArrayList<ActionValueClient>> perpetuals = new ArrayList<ArrayList<ActionValueClient>>();
-    private static ArrayList<ActionValueClient> registrees = new ArrayList<ActionValueClient>();
+    private static ArrayList<ArrayList<ActionValueClient>> perpetuals = new ArrayList<>();
+    private static ArrayList<ActionValueClient> registrees = new ArrayList<>();
     private static MenuItem applyButton;
     private static MenuItem cancelButton;
     private static boolean blocked = false;
     private static boolean showingButtons = false;
 
     public static void registerPerpetual(ActionValueClient element, int sectionNumber) {
-        for (Object o : Utils.configSections)
+        for (Object ignored : Utils.configSections)
             perpetuals.add(new ArrayList<ActionValueClient>());
 
         ArrayList<ActionValueClient> sectionList = perpetuals.get(sectionNumber);
@@ -99,7 +96,7 @@ public class ActionValueUpdater {
         refreshButtons();
     }
 
-    public static void refreshButtons() {
+    private static void refreshButtons() {
         refreshButtons(false);
     }
 
@@ -138,10 +135,10 @@ public class ActionValueUpdater {
         changeElements(false);
     }
 
-    public static void resetSectionDefault(int sectionPosition) {
-        for (ActionValueClient client : perpetuals.get(sectionPosition))
-            client.setDefaults();
-    }
+    //public static void resetSectionDefault(int sectionPosition) {
+    //   for (ActionValueClient client : perpetuals.get(sectionPosition))
+    //        client.setDefaults();
+    //}
 
     public static void setMenu(Menu menu) {
         applyButton = menu.findItem(R.id.action_apply);

@@ -38,9 +38,6 @@ import net.minidev.json.JSONObject;
 
 import java.util.ArrayDeque;
 
-/**
- * Created by Andrei on 30/08/13.
- */
 public class SCheckBox extends BaseElement
                        implements CompoundButton.OnCheckedChangeListener,
                                   ActionValueNotifierClient,
@@ -245,10 +242,10 @@ public class SCheckBox extends BaseElement
         return command;
     }
 
-    private ArrayDeque<ActionNotification> queue = new ArrayDeque<ActionNotification>();
+    private ArrayDeque<ActionNotification> queue = new ArrayDeque<>();
     private boolean jobRunning = false;
 
-    public void handleNotifications() {
+    private void handleNotifications() {
         jobRunning = true;
         while (queue.size() > 0) {
             ActionNotification current = queue.removeFirst();
