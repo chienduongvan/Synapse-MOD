@@ -9,15 +9,20 @@
 
 package com.af.synapse;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -59,6 +64,7 @@ import com.af.synapse.utils.Utils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -76,8 +82,7 @@ public class MainActivity extends FragmentActivity {
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
-
-    static String BB;
+    private Dialog dlg_restaurar = null;
 
     /**
      * The {@link android.support.v4.view.ViewPager} that will host the section contents.
@@ -91,6 +96,8 @@ public class MainActivity extends FragmentActivity {
     public static int topPadding = 0;
     public static int bottomPadding = 0;
 
+    public static String BB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         startTime = System.nanoTime();
@@ -101,6 +108,12 @@ public class MainActivity extends FragmentActivity {
         else if (new File("/sbin/busybox").exists())
             BB = "/sbin/busybox";
         else BB = "/system/xbin/busybox";
+
+        // Comprobar carpeta backup
+        File bk_folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+getString(R.string.dir_backups));
+        if (!bk_folder.exists()){
+            bk_folder.mkdirs();
+        }
 
         Utils.mainActivity = this;
         Utils.density = getResources().getDisplayMetrics().density;
@@ -189,7 +202,32 @@ public class MainActivity extends FragmentActivity {
 
         mDrawerToggle.syncState();
 
-        ActionValueUpdater.refreshButtons(true);
+        // Comprobamos "aplicar_cambios_auto" si esta activo cancelamos para que deje entrar al nuevo perfil
+        SharedPreferences prefs = getSharedPreferences("moro_prefs", Context.MODE_PRIVATE);
+        int auto = prefs.getInt("aplicar_cambios_auto", 0);
+
+        // Si es 1 cancelamos para que entre el perfil y reiniciamos
+        if (auto == 1){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("aplicar_cambios_auto", 2);
+            editor.commit();
+            // cancelamos
+            ActionValueUpdater.cancelElements();
+            // reiniciamos
+            Utils.runCommand("/res/synapse/uci restart", false);
+        }
+        // Si es 2 aplicamos para que coja los voltajes
+        else if (auto == 2){
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("aplicar_cambios_auto", 0);
+            editor.commit();
+            // aplicamos
+            ActionValueUpdater.applyElements();
+        }
+        // Si es 0 no hacemos nada
+        else if (auto == 0)
+            ActionValueUpdater.refreshButtons(true);
+
 
         for (TabSectionFragment f : fragments)
             f.onElementsMainStart();
@@ -255,13 +293,108 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    // Dialogo Restaurar perfil
+    private void dialogo_restaurar(){
+
+        File ficheros = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+getString(R.string.dir_backups));
+        FileFilter ff = new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                String ruta;
+                if(pathname.isFile()){
+                    ruta = pathname.getAbsolutePath().toLowerCase();
+                    //compruebo que el nombre completo, con ruta, del archivo tiene la extensión que yo uso en la apk para backups
+                    if(ruta.contains("."+getString(R.string.ext_backups))){
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
+        File fa[]=ficheros.listFiles(ff);
+        if (fa.length==0){
+            Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.no_backups), Toast.LENGTH_LONG);
+            toast.show();
+        }
+        else{
+
+            AdapterBackups ab = new AdapterBackups();
+            ab.AdapterBackups(this,fa);
+            ListView lista = new ListView(this);
+            lista.setAdapter(ab);
+            lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                    String archivo = tv.getText().toString();
+                    dlg_restaurar.dismiss();
+                    dlg_restaurar=null;
+                    File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+
+                            getString(R.string.dir_backups)+archivo+"."+getString(R.string.ext_backups));
+                    //compruebo que físicamente existe de verdad (otra vez)
+                    if(f.exists()) confirmar_restaurar(archivo);
+                    else{
+                        Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.no_backups), Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                }
+            });
+            AlertDialog.Builder abd = new AlertDialog.Builder(this);
+            abd.setTitle(R.string.dlg_restore_title);
+            abd.setMessage(R.string.dlg_restore_message);
+            abd.setView(lista);
+            dlg_restaurar = abd.create();
+            dlg_restaurar.show();
+        }
+
+    }
+
+    //Dialogo confirmar restauracion perfil
+    private void confirmar_restaurar(final String backup){
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setTitle(R.string.dlg_conf_title);
+        adb.setMessage(getString(R.string.dlg_conf_message, backup));
+        adb.setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+                // Guardo boolean true para el cambio automatico del perfil
+                SharedPreferences prefs = getSharedPreferences("moro_prefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("aplicar_cambios_auto", 1);
+                editor.commit();
+
+                 // Restauramos perfil
+                Utils.runCommand(BB+" mount -o remount,rw /", false);
+                Utils.runCommand("/res/synapse/actions/sqlite ImportConfigSynapse "+backup, false);
+
+                Utils.runCommand("/res/synapse/uci restart", false);
+                Utils.runCommand(BB+" mount -o remount,ro /", false);
+
+
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.dlg_res_profile_toast)+" "+backup, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+        adb.setNegativeButton(R.string.btn_no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();;
+            }
+        });
+        adb.create().show();
+    }
+
     // Cuadro dialogo de guardar perfil
     protected void guardar_perfil() {
 
         AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
-        adb.setTitle(R.string.input_title);
-        adb.setMessage(R.string.input_message);
+        adb.setTitle(R.string.dlg_backup_title);
+        adb.setMessage(R.string.dlg_backup_message);
         final EditText editText = new EditText(MainActivity.this);
+        editText.setHint(R.string.dlg_backup_box);
         adb.setView(editText);
 
         // Si pulsamos OK, cargamos el dialogo de confirmacion de carga de perfil
@@ -273,7 +406,7 @@ public class MainActivity extends FragmentActivity {
                 Utils.runCommand("/res/synapse/actions/sqlite ExportConfigSynapse "+name, false);
                 Utils.runCommand(BB+" mount -o remount,ro /", false);
 
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.profile_toast)+" "+name, Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.dlg_bk_profile_toast)+" "+name, Toast.LENGTH_LONG);
                 toast.show();
             }
         });
@@ -343,6 +476,9 @@ public class MainActivity extends FragmentActivity {
                 return true;
             case R.id.menu_backup:
                 guardar_perfil();
+                return true;
+            case R.id.menu_restore:
+                dialogo_restaurar();
                 return true;
         }
 
