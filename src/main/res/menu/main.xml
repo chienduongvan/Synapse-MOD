@@ -21,4 +21,9 @@
         android:title="@string/action_settings"
         android:icon="@drawable/ic_action_settings"
         android:showAsAction="collapseActionView" />
+
+    <item
+        android:id="@+id/menu_backup"
+        android:title="@string/menu_backup" />
+
 </menu>

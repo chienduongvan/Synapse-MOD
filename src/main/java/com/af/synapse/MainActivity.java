@@ -35,10 +35,12 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.minidev.json.JSONObject;
 import net.minidev.json.JSONArray;
@@ -56,6 +58,7 @@ import com.af.synapse.utils.NamedRunnable;
 import com.af.synapse.utils.Utils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -74,6 +77,8 @@ public class MainActivity extends FragmentActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
 
+    static String BB;
+
     /**
      * The {@link android.support.v4.view.ViewPager} that will host the section contents.
      */
@@ -89,6 +94,13 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         startTime = System.nanoTime();
+
+        // Define Busybox
+        if (new File("/su/xbin/busybox").exists())
+            BB = "/su/xbin/busybox";
+        else if (new File("/sbin/busybox").exists())
+            BB = "/sbin/busybox";
+        else BB = "/system/xbin/busybox";
 
         Utils.mainActivity = this;
         Utils.density = getResources().getDisplayMetrics().density;
@@ -243,6 +255,40 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    // Cuadro dialogo de guardar perfil
+    protected void guardar_perfil() {
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
+        adb.setTitle(R.string.input_title);
+        adb.setMessage(R.string.input_message);
+        final EditText editText = new EditText(MainActivity.this);
+        adb.setView(editText);
+
+        // Si pulsamos OK, cargamos el dialogo de confirmacion de carga de perfil
+        adb.setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Guardamos el perfil
+                String name = editText.getText().toString().replace(' ','_');
+                Utils.runCommand(BB+" mount -o remount,rw /", false);
+                Utils.runCommand("/res/synapse/actions/sqlite ExportConfigSynapse "+name, false);
+                Utils.runCommand(BB+" mount -o remount,ro /", false);
+
+                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.profile_toast)+" "+name, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        });
+        // Si pulsamos Cancelar salimos
+        adb.setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        // create an alert dialog
+        AlertDialog alert = adb.create();
+        alert.show();
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -283,18 +329,21 @@ public class MainActivity extends FragmentActivity {
         switch (item.getItemId()) {
             case R.id.action_apply:
                 ActionValueUpdater.applyElements();
-                break;
+                return true;
             case R.id.action_cancel:
                 ActionValueUpdater.cancelElements();
-                break;
+                return true;
             case R.id.action_select_multi:
                 startActionMode(ElementSelector.callback);
-                break;
+                return true;
             case R.id.action_settings:
                 Intent intent = new Intent(this, Settings.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 this.startActivity(intent);
-                break;
+                return true;
+            case R.id.menu_backup:
+                guardar_perfil();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

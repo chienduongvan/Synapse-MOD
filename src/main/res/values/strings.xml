@@ -52,4 +52,13 @@
         <item>Holo Dark</item>
         <item>Translucent Dark</item>
     </string-array>
+
+    <string name="menu_backup">Backup profile</string>
+    <string name="menu_restore">Restore profile</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="input_title">Backup Profile</string>
+    <string name="input_message">Enter new profile name.\n\nShort names are recommended.\n</string>
+    <string name="input_box">Enter text here&#8230;</string>
+    <string name="profile_toast">Created profile</string>
 </resources>
