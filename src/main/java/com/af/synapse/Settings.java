@@ -130,12 +130,15 @@ public class Settings extends PreferenceActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class MyPreferenceFragment extends PreferenceFragment {
+    public static class MyPreferenceFragment extends PreferenceFragment {
+
+        public MyPreferenceFragment(){}
+
         @Override
         public void onCreate(final Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
-            PreferenceManager.setDefaultValues(Settings.this, R.xml.preference_main, true);
+            //PreferenceManager.setDefaultValues(Settings.this, R.xml.preference_main, true);
             addPreferencesFromResource(R.xml.preference_main);
         }
 
