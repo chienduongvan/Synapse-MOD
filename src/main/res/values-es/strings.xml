@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_settings">Ajustes</string>
+
+    <string name="initial_loading">Cargando…</string>
+    <string name="initial_no_uci">Soporte UCI NO detectado.</string>
+    <string name="initial_no_root">No se concedieron permiso root.</string>
+    <string name="initial_json_parse">Error en la estructura de JSON.</string>
+
+    <string name="activity_link_movement_failure">El link no pudo ser abierto por ninguna aplicación.</string>
+
+    <string name="action_apply">Aplicar</string>
+    <string name="action_cancel">Cancelar</string>
+    <string name="action_select">Seleccionar</string>
+
+    <string name="action_settings">Ajustes</string>
+
+    <string name="action_reset">Reset por defecto</string>
+    <string name="action_section_select_all">Seleccionar todo en sección</string>
+    <string name="action_global_select_all">Seleccionar todo globalmente</string>
+
+    <string name="boot_service_complete">Arranque de Synapse completado</string>
+    <string name="boot_service_cancel">Arranque de Synapse cancelado</string>
+
+    <string name="popup_failed_boot_title">Ajustes de arranque cancelados</string>
+    <string name="popup_failed_boot_message">Los últimos ajustes aplicados no se han considerado estables debido a un posible bloqueo o reinicio del dispositivo.\n\nLos ajustes se consideran estables 2 minutos después de que se apliquen al arrancar.\n\nPulse Cancelar para restablecer los últimos ajustes guardados.</string>
+    <string name="popup_failed_boot_ack">Entendido</string>
+
+    <string name="drawer_open">Abrir navegador</string>
+    <string name="drawer_close">Cerrar navegador</string>
+
+    <string name="preference_category_boot_title">Servicio de arranque</string>
+    <string name="preference_bool_boot_master_title">Aplicar en el arranque</string>
+    <string name="preference_bool_boot_master_summary">Switch principal para el servicio de arranque.</string>
+    <string name="preference_bool_boot_probation_title">Chequeo de estabilidad</string>
+    <string name="preference_bool_boot_probation_summary">Revertir todos los cambios si el dispositivo se bloquea o se apaga en 2 minutos después del inicio.</string>
+
+    <string name="preference_category_theme_title">Tema</string>
+
+    <string name="preference_list_theme_option_title">Tema de la aplicación</string>
+    <string name="preference_list_theme_option_summary">Cambia la apariencia de la aplicación</string>
+    <string name="preference_list_theme_option_dialog_title">Elija un tema:</string>
+    <string-array name="preference_array_theme_option_labels">
+        <item>Holo Black</item>
+        <item>Holo Dark</item>
+        <item>Translucent Dark</item>
+    </string-array>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_no">No</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_yes">Si</string>
+    <string name="dlg_backup_box">Introduzca el texto aquí&#8230;</string>
+    <string name="dlg_backup_message">Introduzca nombre para el nuevo perfil.\n\nSe recomienda nombres cortos.\n</string>
+    <string name="dlg_backup_title">Guardar Perfil</string>
+    <string name="dlg_conf_message">Has seleccionado el perfil \"%1$s\" para restaurarlo, si continuas perderás la configuracion actual.\n\nEstás seguro?</string>
+    <string name="dlg_conf_title">¡¡ ATENCION !!</string>
+    <string name="dlg_bk_profile_toast">Creado perfil</string>
+    <string name="dlg_res_profile_toast">Restaurado perfil</string>
+    <string name="dlg_restore_error">Se ha produjo un error al restaurar</string>
+    <string name="dlg_restore_message">Seleccione un perfil a restaurar</string>
+    <string name="dlg_restore_title">Restaurar Perfil</string>
+    <string name="menu_backup">Guardar perfil</string>
+    <string name="menu_restore">Restaurar perfil</string>
+    <string name="no_backups">No hay ningun perfil guardado</string>
+</resources>
