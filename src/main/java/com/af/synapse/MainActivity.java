@@ -773,6 +773,12 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
+    public void onStop(){
+        super.onStop();
+        System.gc();
+    }
+
+    @Override
     public void onPause(){
         super.onPause();
         System.gc();

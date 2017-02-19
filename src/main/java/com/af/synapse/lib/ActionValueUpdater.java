@@ -30,8 +30,14 @@ public class ActionValueUpdater {
         for (Object ignored : Utils.configSections)
             perpetuals.add(new ArrayList<ActionValueClient>());
 
-        ArrayList<ActionValueClient> sectionList = perpetuals.get(sectionNumber);
-        sectionList.add(element);
+        if(sectionNumber<perpetuals.size()){
+            ArrayList<ActionValueClient> sectionList = perpetuals.get(sectionNumber);
+            try {
+                sectionList.add(element);
+            }catch (NullPointerException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void removePerpetual(ActionValueClient element) {
