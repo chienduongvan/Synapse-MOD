@@ -6,7 +6,7 @@
     android:id="@+id/activity_main"
     tools:context=".MainActivity">
 
-    <com.af.synapse.view.CustomDrawerLayout
+    <com.moro.synapsemod.view.CustomDrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -50,5 +50,5 @@
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
             android:background="@color/nav_panel_background"/>
-    </com.af.synapse.view.CustomDrawerLayout>
+    </com.moro.synapsemod.view.CustomDrawerLayout>
 </FrameLayout>

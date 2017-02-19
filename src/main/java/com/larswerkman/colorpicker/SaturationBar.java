@@ -31,8 +31,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.af.synapse.R;
-import com.af.synapse.utils.L;
+import com.moro.synapsemod.R;
 
 public class SaturationBar extends View {
 

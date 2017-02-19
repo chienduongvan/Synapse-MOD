@@ -31,7 +31,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.af.synapse.R;
+import com.moro.synapsemod.R;
 
 public class ValueBar extends View {
 

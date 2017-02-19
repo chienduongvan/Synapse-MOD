@@ -17,7 +17,7 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.af.synapse"
+        applicationId "com.moro.synapsemod"
         versionCode 50
         versionName "0.50"
         minSdkVersion 17
