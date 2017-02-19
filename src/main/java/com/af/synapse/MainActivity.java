@@ -768,6 +768,11 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        if(Utils.appStarted) finish();
+    }
+
+    @Override
     public void onPause(){
         super.onPause();
         System.gc();
