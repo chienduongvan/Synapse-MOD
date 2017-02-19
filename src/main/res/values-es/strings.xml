@@ -50,14 +50,14 @@
     <string name="btn_ok">OK</string>
     <string name="btn_yes">Si</string>
     <string name="dlg_backup_box">Introduzca el texto aquí&#8230;</string>
-    <string name="dlg_backup_message">Introduzca nombre para el nuevo perfil.\n\nSe recomienda nombres cortos.\n</string>
+    <string name="dlg_backup_message">\nIntroduzca nombre para el nuevo perfil.\n\nSe recomienda nombres cortos.\n</string>
     <string name="dlg_backup_title">Guardar Perfil</string>
-    <string name="dlg_conf_message">Has seleccionado el perfil \"%1$s\" para restaurarlo, si continuas perderás la configuracion actual.\n\nEstás seguro?</string>
+    <string name="dlg_conf_message">\nHas seleccionado el perfil \"%1$s\" para restaurarlo, si continuas perderás la configuracion actual.\n\nSynapse se reiniciará 2 veces para aplicar los cambios y ajustar los voltajes adecuados.\n\nEstás seguro?\n</string>
     <string name="dlg_conf_title">¡¡ ATENCION !!</string>
     <string name="dlg_bk_profile_toast">Creado perfil</string>
     <string name="dlg_res_profile_toast">Restaurado perfil</string>
     <string name="dlg_restore_error">Se ha produjo un error al restaurar</string>
-    <string name="dlg_restore_message">Seleccione un perfil a restaurar</string>
+    <string name="dlg_restore_message">\nSeleccione un perfil a restaurar</string>
     <string name="dlg_restore_title">Restaurar Perfil</string>
     <string name="menu_backup">Guardar perfil</string>
     <string name="menu_restore">Restaurar perfil</string>

@@ -58,7 +58,7 @@
     <string name="btn_ok">OK</string>
     <string name="btn_cancel">Cancel</string>
     <string name="dlg_backup_title">Backup Profile</string>
-    <string name="dlg_backup_message">Enter new profile name.\n\nShort names are recommended.\n</string>
+    <string name="dlg_backup_message">\nEnter new profile name.\n\nShort names are recommended.\n</string>
     <string name="dlg_backup_box">Enter text here&#8230;</string>
     <string name="dlg_bk_profile_toast">Created profile</string>
     <string name="dlg_res_profile_toast">Restored profile</string>
@@ -68,11 +68,11 @@
     <string name="no_backups">There are no saved profile</string>
 
     <string name="dlg_restore_title">Restore Profile</string>
-    <string name="dlg_restore_message">Select a profile to restore</string>
+    <string name="dlg_restore_message">\nSelect a profile to restore</string>
     <string name="dlg_restore_error">There was an error restoring</string>
     <string name="btn_yes">Yes</string>
     <string name="btn_no">No</string>
     <string name="dlg_conf_title">"¡¡ WARNING !!"</string>
-    <string name="dlg_conf_message">You have selected \"%1$s\" profile to restore, if you continue you will lose the current settings.\n\nAre you sure?</string>
+    <string name="dlg_conf_message">You have selected \"%1$s\" profile to restore, if you continue you will lose the current settings.\n\nSynapse will restart 2 times to apply the changes and adjust the appropriate voltages.\n\nAre you sure?\n</string>
 
 </resources>

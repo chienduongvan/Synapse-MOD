@@ -342,6 +342,7 @@ public class MainActivity extends FragmentActivity {
             AlertDialog.Builder abd = new AlertDialog.Builder(this);
             abd.setTitle(R.string.dlg_restore_title);
             abd.setMessage(R.string.dlg_restore_message);
+            abd.setIcon(R.drawable.ic_action_restore);
             abd.setView(lista);
             dlg_restaurar = abd.create();
             dlg_restaurar.show();
@@ -354,6 +355,7 @@ public class MainActivity extends FragmentActivity {
 
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setTitle(R.string.dlg_conf_title);
+        adb.setIcon(R.drawable.ic_alert);
         adb.setMessage(getString(R.string.dlg_conf_message, backup));
         adb.setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
             @Override
@@ -372,10 +374,6 @@ public class MainActivity extends FragmentActivity {
 
                 Utils.runCommand("/res/synapse/uci restart", false);
                 Utils.runCommand(BB+" mount -o remount,ro /", false);
-
-
-                Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.dlg_res_profile_toast)+" "+backup, Toast.LENGTH_LONG);
-                toast.show();
             }
         });
         adb.setNegativeButton(R.string.btn_no, new DialogInterface.OnClickListener() {
@@ -392,7 +390,9 @@ public class MainActivity extends FragmentActivity {
 
         AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
         adb.setTitle(R.string.dlg_backup_title);
+        adb.setIcon(R.drawable.ic_action_save);
         adb.setMessage(R.string.dlg_backup_message);
+
         final EditText editText = new EditText(MainActivity.this);
         editText.setHint(R.string.dlg_backup_box);
         adb.setView(editText);
