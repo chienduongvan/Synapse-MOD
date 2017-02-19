@@ -27,5 +27,5 @@
         <attr name="livelabel_vertical_padding" format="dimension" />
     </declare-styleable>
 
-
+    <attr name="activatedBackgroundIndicator" format="reference" />
 </resources>

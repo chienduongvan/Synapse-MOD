@@ -10,7 +10,7 @@
     <dimen name="bar_fill_thickness">3dp</dimen>
 
     <!-- Navigation panel dimensions -->
-    <dimen name="nav_panel_width">140dp</dimen>
+    <dimen name="nav_panel_width">200dp</dimen>
 
     <!-- Standart dimens for the color wheel -->
     <dimen name="color_wheel_radius">105dp</dimen>

@@ -15,14 +15,10 @@ import android.view.View;
 import android.widget.SeekBar;
 
 import com.af.synapse.R;
-import com.af.synapse.utils.L;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-/**
- * Created by Andrei on 29/09/13.
- */
 public class SmartSeeker extends View {
     private static Bitmap thumbNormal = null;
     private static Bitmap thumbPressed = null;
@@ -53,8 +49,8 @@ public class SmartSeeker extends View {
     private boolean isMovingSeeker = false;
 
     private ArrayList<Integer> values = null;
-    ArrayList<Integer> valuePoints = new ArrayList<Integer>();
-    ArrayList<Integer> bounds = new ArrayList<Integer>();
+    ArrayList<Integer> valuePoints = new ArrayList<>();
+    ArrayList<Integer> bounds = new ArrayList<>();
 
     private int max = 10;
 
@@ -117,7 +113,7 @@ public class SmartSeeker extends View {
         barPaintBack.setColor(Color.DKGRAY);
 
         barPaintFill = new Paint();
-        barPaintFill.setColor(Color.argb(0xFF, 0x33, 0xB5, 0xE5));
+        barPaintFill.setColor(Color.argb(0xFF, 0xCC, 0x00, 0x00));
         initialized = true;
     }
 
@@ -178,7 +174,7 @@ public class SmartSeeker extends View {
     }
 
     private void drawThumb(Canvas canvas, Bitmap thumb, float position) {
-        canvas.drawBitmap(thumb, position, (float) ((getHeight() * 0.5f) - thumbHalfHeight), paint);
+        canvas.drawBitmap(thumb, position, (getHeight() * 0.5f) - thumbHalfHeight, paint);
     }
 
     @Override

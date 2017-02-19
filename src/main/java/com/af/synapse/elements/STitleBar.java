@@ -26,20 +26,24 @@ import net.minidev.json.JSONObject;
 
 public class STitleBar extends BaseElement {
     private static Drawable background = null;
-    private static int paddingLeft = Integer.MIN_VALUE;
+    private static int paddingStart = Integer.MIN_VALUE;
     private static int paddingBottom = Integer.MIN_VALUE;
+    private static int paddingTop = Integer.MIN_VALUE;
 
     public STitleBar(JSONObject element, LinearLayout layout, MainActivity.TabSectionFragment fragment) {
         super(element, layout, fragment);
 
         if (background == null)
-            background = Utils.mainActivity.getResources().getDrawable(R.drawable.holo_gradient_dark_0);
+            background = Utils.mainActivity.getResources().getDrawable(R.drawable.holo_gradient_red);
 
-        if (paddingLeft == Integer.MIN_VALUE)
-            paddingLeft = (int) (3 * Utils.density + 0.5f);
+        if (paddingStart == Integer.MIN_VALUE)
+            paddingStart = (int) (6 * Utils.density + 0.5f);
 
         if (paddingBottom == Integer.MIN_VALUE)
-            paddingBottom = (int) (1 * Utils.density + 0.5f);
+            paddingBottom = (int) (3 * Utils.density + 0.5f);
+
+        if (paddingTop == Integer.MIN_VALUE)
+            paddingTop = (int) (3 * Utils.density + 0.5f);
     }
 
     @Override
@@ -56,7 +60,7 @@ public class STitleBar extends BaseElement {
             v.setTypeface(Typeface.DEFAULT_BOLD);
             v.setTextColor(Color.WHITE);
             v.setBackground(background);
-            v.setPadding(paddingLeft, 0, 0, paddingBottom);
+            v.setPadding(paddingStart, paddingTop, 0, paddingBottom);
         }
 
         if (element.containsKey("background"))

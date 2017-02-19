@@ -6,10 +6,6 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
- * Created by Andrei on 03/05/14.
- */
-
-/**
  * Credits to http://stackoverflow.com/a/17887358/2780173
  */
 
