@@ -1,0 +1,12 @@
+*.iml
+/.gradle
+/.idea
+/build
+/gradle
+.DS_Store
+/captures
+.externalNativeBuild
+gradlew
+gradlew.bat
+local.properties
+Synapse-MOD.iml
