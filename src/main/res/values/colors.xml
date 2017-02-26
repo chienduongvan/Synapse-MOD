@@ -12,5 +12,11 @@
     <color name="ics_background_end">#ff272D33</color>
 
     <color name="holo_blue_light_alpha">#f033b5e5</color>
+    <color name="holo_red_light">#ffff4444</color>
+    <color name="holo_red_dark">#ffcc0000</color>
+    <color name="holo_red_dark2">#ffb30000</color>
+    <color name="Red_500">#fff44336</color>
+    <color name="Red_700">#ffc53929</color>
+
 
 </resources>

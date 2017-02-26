@@ -11,11 +11,13 @@
         android:showAsAction="never"
         android:visible="false" />
 
+    <!--
     <item android:id="@+id/action_select_multi"
         android:title="@string/action_select"
         android:icon="@drawable/ic_action_select_all"
         android:showAsAction="always"
         android:visible="true" />
+    -->
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"

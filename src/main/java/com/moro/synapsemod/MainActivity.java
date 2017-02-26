@@ -189,7 +189,7 @@ public class MainActivity extends FragmentActivity {
         mDrawerList.setItemChecked(0, true);
 
         mDrawerLayout = (DrawerLayout) v.findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer,
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_action_drawer,
                                                   R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
@@ -463,9 +463,9 @@ public class MainActivity extends FragmentActivity {
             case R.id.action_cancel:
                 ActionValueUpdater.cancelElements();
                 return true;
-            case R.id.action_select_multi:
-                startActionMode(ElementSelector.callback);
-                return true;
+            //case R.id.action_select_multi:
+            //   startActionMode(ElementSelector.callback);
+            //   return true;
             case R.id.action_settings:
                 Intent intent = new Intent(this, Settings.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

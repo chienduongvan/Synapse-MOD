@@ -18,7 +18,7 @@
             android:defaultValue="true"
             android:dependency="preference_bool_boot_master"/>
     </PreferenceCategory>
-
+<!--
     <PreferenceCategory
         android:title="@string/preference_category_theme_title">
 
@@ -31,4 +31,5 @@
             android:dialogTitle="@string/preference_list_theme_option_dialog_title"
             android:defaultValue="HOLO_BLACK"/>
     </PreferenceCategory>
+ -->
 </PreferenceScreen>
